@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)file:///C:/Users/nyckn/Downloads/handball-app-plan_1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handball App — Full Plan</title>
+<link href="./handball-app-plan_files/css2" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f2ed;
+    --black: #111010;
+    --dark: #1e1c1a;
+    --panel: #edeae4;
+    --border: rgba(17,16,16,0.1);
+    --red: #d63a2a;
+    --red-dim: rgba(214,58,42,0.08);
+    --blue: #1a4a8a;
+    --blue-dim: rgba(26,74,138,0.08);
+    --green: #1a6e40;
+    --green-dim: rgba(26,110,64,0.08);
+    --gold: #b87c1a;
+    --gold-dim: rgba(184,124,26,0.08);
+    --gray: #888078;
+    --text: #111010;
+    --muted: #6b6560;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: auto; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--black);
+    color: #f5f2ed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 64px 56px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 50%; height: 100%;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.015) 40px,
+      rgba(255,255,255,0.015) 41px
+    );
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; right: -80px;
+    width: 500px; height: 500px;
+    border: 1px solid rgba(214,58,42,0.2);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: up 0.5s ease forwards 0.2s;
+  }
+
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(72px, 12vw, 160px);
+    font-weight: 800;
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: up 0.6s ease forwards 0.4s;
+  }
+
+  .hero-title span { color: var(--red); }
+
+  .hero-sub {
+    margin-top: 28px;
+    font-size: 15px;
+    color: rgba(245,242,237,0.5);
+    max-width: 480px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: up 0.6s ease forwards 0.6s;
+  }
+
+  .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 36px;
+    opacity: 0;
+    animation: up 0.6s ease forwards 0.8s;
+  }
+
+  .hpill {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid rgba(245,242,237,0.15);
+    color: rgba(245,242,237,0.5);
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    border-top: 1px solid rgba(245,242,237,0.08);
+    margin-top: 56px;
+    opacity: 0;
+    animation: up 0.5s ease forwards 1s;
+  }
+
+  .hstat {
+    padding: 20px 0 0;
+    border-right: 1px solid rgba(245,242,237,0.08);
+    padding-right: 20px;
+    margin-right: 20px;
+  }
+  .hstat:last-child { border-right: none; }
+  .hstat-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: #f5f2ed;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hstat-val span { color: var(--red); }
+  .hstat-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,242,237,0.35);
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--black);
+    border-bottom: 1px solid rgba(245,242,237,0.06);
+    display: flex;
+    overflow-x: auto;
+    padding: 0 32px;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+
+  nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(245,242,237,0.4);
+    text-decoration: none;
+    padding: 16px 16px;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+  nav a:hover { color: var(--red); border-bottom-color: var(--red); }
+
+  /* SECTIONS */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 88px 56px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+
+  .sec-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    margin-bottom: 40px;
+    color: var(--black);
+  }
+  .sec-title span { color: var(--red); }
+  .sec-title .b { color: var(--blue); }
+  .sec-title .g { color: var(--green); }
+  .sec-title .go { color: var(--gold); }
+
+  .intro {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 600px;
+    margin-bottom: 48px;
+    line-height: 1.85;
+  }
+  .intro strong { color: var(--text); font-weight: 500; }
+
+  /* GRIDS */
+  .g2 { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 2px; background: var(--border); margin-bottom: 24px; }
+  .g3 { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 2px; background: var(--border); margin-bottom: 24px; }
+  .g4 { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 2px; background: var(--border); margin-bottom: 24px; }
+
+  .card {
+    background: var(--bg);
+    padding: 28px 24px;
+  }
+
+  .card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+
+  .card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .card p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+
+  ul.plain { list-style: none; }
+  ul.plain li {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+  }
+  ul.plain li:last-child { border-bottom: none; }
+  ul.plain li strong { color: var(--text); font-weight: 500; }
+
+  ul.arr { list-style: none; }
+  ul.arr li {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 7px 0 7px 16px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    line-height: 1.5;
+  }
+  ul.arr li:last-child { border-bottom: none; }
+  ul.arr li::before { content: '→'; position: absolute; left: 0; font-size: 11px; }
+  ul.arr.red li::before { color: var(--red); }
+  ul.arr.blue li::before { color: var(--blue); }
+  ul.arr.green li::before { color: var(--green); }
+  ul.arr.gold li::before { color: var(--gold); }
+
+  /* CALLOUT */
+  .callout {
+    border-left: 3px solid var(--red);
+    background: var(--red-dim);
+    padding: 16px 20px;
+    margin: 24px 0;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .callout.blue { border-color: var(--blue); background: var(--blue-dim); }
+  .callout.green { border-color: var(--green); background: var(--green-dim); }
+  .callout.gold { border-color: var(--gold); background: var(--gold-dim); }
+
+  /* SCREEN MAP */
+  .screens {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .screen-card {
+    background: var(--dark);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .screen-top {
+    background: var(--black);
+    height: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 10px;
+  }
+
+  .screen-top span {
+    width: 4px; height: 4px;
+    background: rgba(245,242,237,0.15);
+    border-radius: 50%;
+  }
+
+  .screen-body { padding: 14px; }
+
+  .screen-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #f5f2ed;
+    margin-bottom: 8px;
+  }
+
+  .screen-items { list-style: none; }
+  .screen-items li {
+    font-size: 10px;
+    color: rgba(245,242,237,0.4);
+    padding: 3px 0;
+    border-bottom: 1px solid rgba(245,242,237,0.05);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+  .screen-items li:last-child { border-bottom: none; }
+  .screen-items li.active { color: var(--red); }
+
+  /* TECH STACK */
+  .tech-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 1fr;
+    border-bottom: 1px solid var(--border);
+    min-height: 52px;
+  }
+  .tech-row:last-child { border-bottom: none; }
+  .tech-layer {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    padding: 14px 0;
+    line-height: 1.4;
+  }
+  .tech-tool {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+    padding: 14px 0 14px 16px;
+    border-left: 1px solid var(--border);
+    line-height: 1.5;
+  }
+  .tech-why {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 14px 0 14px 16px;
+    border-left: 1px solid var(--border);
+    line-height: 1.5;
+  }
+
+  /* TIMELINE */
+  .tl { position: relative; padding-left: 24px; }
+  .tl::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 1px;
+    background: rgba(214,58,42,0.25);
+  }
+  .tl-item { position: relative; margin-bottom: 36px; }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -28px; top: 6px;
+    width: 8px; height: 8px;
+    background: var(--red);
+    border-radius: 50%;
+  }
+  .tl-phase {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+  .tl-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 6px;
+    color: var(--black);
+  }
+  .tl-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .tl-tasks { list-style: none; margin-top: 10px; }
+  .tl-tasks li {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 5px 0 5px 14px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .tl-tasks li::before { content: '·'; position: absolute; left: 0; color: var(--red); font-size: 16px; line-height: 1; top: 4px; }
+  .tl-tasks li:last-child { border-bottom: none; }
+
+  /* DIVIDER */
+  .div { height: 1px; background: var(--border); margin: 36px 0; }
+
+  /* BIG LABEL */
+  .big-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 6px;
+    color: var(--black);
+  }
+
+  .sub-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  /* PILL */
+  .pill {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    margin: 2px 3px 2px 0;
+    border-radius: 2px;
+  }
+  .p-red { background: var(--red-dim); color: var(--red); }
+  .p-blue { background: var(--blue-dim); color: var(--blue); }
+  .p-green { background: var(--green-dim); color: var(--green); }
+  .p-gold { background: var(--gold-dim); color: var(--gold); }
+  .p-gray { background: rgba(136,128,120,0.1); color: var(--gray); }
+
+  /* DATABASE */
+  .db-table {
+    background: var(--dark);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .db-header {
+    background: var(--black);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .db-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--red);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  .db-desc {
+    font-size: 11px;
+    color: rgba(245,242,237,0.3);
+  }
+  .db-fields { padding: 8px 16px 12px; }
+  .db-field {
+    display: grid;
+    grid-template-columns: 160px 100px 1fr;
+    gap: 0;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(245,242,237,0.04);
+    font-size: 11px;
+  }
+  .db-field:last-child { border-bottom: none; }
+  .db-field .fname { font-family: 'DM Mono', monospace; color: rgba(245,242,237,0.7); letter-spacing: 0.03em; }
+  .db-field .ftype { font-family: 'DM Mono', monospace; color: var(--gold); font-size: 10px; }
+  .db-field .fnote { color: rgba(245,242,237,0.25); font-size: 10px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    padding: 48px 56px;
+    text-align: center;
+  }
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,242,237,0.2);
+  }
+
+  @keyframes up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 800px) {
+    .hero { padding: 40px 24px 40px; }
+    .section { padding: 56px 24px; }
+    nav { padding: 0 16px; }
+    .g2,.g3,.g4 { grid-template-columns: 1fr; }
+    .screens { grid-template-columns: 1fr 1fr; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+    .tech-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">NYC · Spring 2026 · App Plan v1.0</div>
+  <h1 class="hero-title">HANDBALL<br><span>SOCIAL</span><br>APP</h1>
+  <p class="hero-sub">A complete plan for building the first serious handball social platform — find games, log scores, run tournaments, and film the highlights. Starting NYC, expanding everywhere.</p>
+  <div class="hero-pills">
+    <span class="hpill">Find Games</span>
+    <span class="hpill">Create Games</span>
+    <span class="hpill">Score Logging</span>
+    <span class="hpill">Referee Sheet</span>
+    <span class="hpill">Tournaments</span>
+    <span class="hpill">Video Links</span>
+    <span class="hpill">Player Profiles</span>
+    <span class="hpill">NYC First</span>
+  </div>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-val">6<span>–8</span></div><div class="hstat-lbl">Weeks to MVP</div></div>
+    <div class="hstat"><div class="hstat-val">7</div><div class="hstat-lbl">Core Screens</div></div>
+    <div class="hstat"><div class="hstat-val">3</div><div class="hstat-lbl">Build Phases</div></div>
+    <div class="hstat"><div class="hstat-val">1</div><div class="hstat-lbl">City at Launch</div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a onclick="goTo(&#39;vision&#39;)">Vision</a>
+  <a onclick="goTo(&#39;features&#39;)">Features</a>
+  <a onclick="goTo(&#39;screens&#39;)">Screens</a>
+  <a onclick="goTo(&#39;database&#39;)">Database</a>
+  <a onclick="goTo(&#39;techstack&#39;)">Tech Stack</a>
+  <a onclick="goTo(&#39;build&#39;)">Build Plan</a>
+  <a onclick="goTo(&#39;daily&#39;)">Daily Schedule</a>
+  <a onclick="goTo(&#39;lifeOS&#39;)">Life OS Link</a>
+</nav>
+
+<!-- VISION -->
+<div class="section" id="vision">
+  <div class="sec-label">01 — Why This Exists</div>
+  <h2 class="sec-title">The <span>Vision</span></h2>
+  <p class="intro">Handball has no real digital home. Players find games through word of mouth, group chats, and showing up and hoping someone's there. <strong>This app fixes that.</strong> It starts with NYC — the handball capital — and gives players a real platform to organize, compete, and document their game.</p>
+
+  <div class="g3">
+    <div class="card">
+      <h3 style="color:var(--red)">The Problem</h3>
+      <div class="card-label" style="color:var(--red)">What exists today</div>
+      <ul class="arr red">
+        <li>Games organized through group chats and word of mouth</li>
+        <li>No way to find open games near you</li>
+        <li>Scores forgotten, never tracked</li>
+        <li>No tournament infrastructure for casual players</li>
+        <li>No way to attach video to a game</li>
+        <li>No player identity or stats over time</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--blue)">The Solution</h3>
+      <div class="card-label" style="color:var(--blue)">What this app does</div>
+      <ul class="arr blue">
+        <li>Map of open games near you, right now</li>
+        <li>Create a game in 30 seconds, share a link</li>
+        <li>Official game sheet filled out by a referee</li>
+        <li>Tournament brackets built and managed in-app</li>
+        <li>Attach YouTube or video link to any game</li>
+        <li>Player profile with full game and score history</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--green)">The Edge</h3>
+      <div class="card-label" style="color:var(--green)">Why this wins</div>
+      <ul class="arr green">
+        <li>Built by a handball player, for handball players</li>
+        <li>Referee game sheet is unique — no other app has this</li>
+        <li>Video attachment turns casual games into content</li>
+        <li>NYC community is tight — word spreads fast</li>
+        <li>Foundation ready to expand to all sports</li>
+        <li>You know the courts, the players, the culture</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    🎯 <strong>The one sentence pitch:</strong> "Find a handball game near you in NYC, log your score, run a tournament, and upload the highlight reel — all in one place."
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="section" id="features">
+  <div class="sec-label">02 — What It Does</div>
+  <h2 class="sec-title">Core <span>Features</span></h2>
+  <p class="intro">Six core features for the MVP. Each one is independently valuable — players will use the app even if they only care about one of them.</p>
+
+  <div class="g2" style="margin-bottom:2px">
+    <div class="card">
+      <h3 style="color:var(--red)">Find Open Games</h3>
+      <div class="card-label" style="color:var(--red)">Discovery · Map-based</div>
+      <p>A map of NYC showing open games happening today and this week. Filter by court, game type (singles, doubles, cutthroat), skill level, and time. Tap a game to see who's playing and join with one tap.</p>
+      <ul class="arr red">
+        <li>Map view with court pins showing active games</li>
+        <li>List view — sorted by distance or time</li>
+        <li>Filter by: game type, skill level, time, court</li>
+        <li>Join with one tap — notifies the game creator</li>
+        <li>See player profiles of who's already in</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--red)">Create a Game</h3>
+      <div class="card-label" style="color:var(--red)">Organizer · 30-second setup</div>
+      <p>Create an open game in under 30 seconds. Set the court, time, game type, and how many spots are open. Share a link directly to teammates via text or social. The game appears on the map instantly.</p>
+      <ul class="arr red">
+        <li>Pick court from saved NYC locations</li>
+        <li>Set date, time, game type, max players</li>
+        <li>Set skill level (open, intermediate, advanced)</li>
+        <li>Shareable link for non-app users to view</li>
+        <li>Creator gets notified when players join</li>
+      </ul>
+    </div>
+  </div>
+  <div class="g2" style="margin-bottom:2px">
+    <div class="card">
+      <h3 style="color:var(--blue)">Score Logging + Referee Sheet</h3>
+      <div class="card-label" style="color:var(--blue)">Records · Official Game Sheet</div>
+      <p>After any game, log the score. For official games, assign a referee who fills out a full game sheet — points per rally, serving rotation, timeouts, player fouls. Like a baseball scorecard but for handball. This data feeds each player's career stats.</p>
+      <ul class="arr blue">
+        <li>Quick score log — winner, score, players</li>
+        <li>Full referee mode — point-by-point entry</li>
+        <li>Serving rotation tracker</li>
+        <li>Player fouls and timeouts logged</li>
+        <li>Game sheet saved permanently to both profiles</li>
+        <li>Stats auto-update on player profiles</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--blue)">Video Attachment</h3>
+      <div class="card-label" style="color:var(--blue)">Highlights · YouTube + Links</div>
+      <p>Attach a YouTube link, Instagram Reel, or any video URL to a completed game. The video shows up on the game page, on both player profiles, and in a public highlights feed. Turns every filmed game into a permanent record.</p>
+      <ul class="arr blue">
+        <li>Attach YouTube, Instagram, or any video URL</li>
+        <li>Video preview thumbnail generated automatically</li>
+        <li>Shows on game page and both player profiles</li>
+        <li>Public highlights feed — best games in NYC</li>
+        <li>Multiple videos per game allowed</li>
+      </ul>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <h3 style="color:var(--green)">Tournaments</h3>
+      <div class="card-label" style="color:var(--green)">Competition · Brackets + Sign-ups</div>
+      <p>Create a tournament in minutes. Set the format (single elimination, round robin), court locations, date, and entry requirements. Players sign up in-app. Brackets auto-generate and update in real time as scores are logged.</p>
+      <ul class="arr green">
+        <li>Create: name, format, court, date, max players</li>
+        <li>Public sign-up page shareable by link</li>
+        <li>Auto-generated bracket on sign-up close</li>
+        <li>Score entry updates bracket in real time</li>
+        <li>Referee sheet available for each match</li>
+        <li>Tournament history saved on all player profiles</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--green)">Player Profiles</h3>
+      <div class="card-label" style="color:var(--green)">Identity · Stats + History</div>
+      <p>Every player gets a profile showing their full game history, win/loss record, tournament results, and highlight videos. Your handball identity — built automatically as you play. Searchable by other players.</p>
+      <ul class="arr green">
+        <li>Win/loss record — overall and by game type</li>
+        <li>Tournament history and placements</li>
+        <li>Recent games with scores and opponents</li>
+        <li>Highlight video reel</li>
+        <li>Home courts and preferred game types</li>
+        <li>Follow other players — see their activity</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SCREENS -->
+<div class="section" id="screens">
+  <div class="sec-label">03 — User Experience</div>
+  <h2 class="sec-title">App <span>Screens</span></h2>
+  <p class="intro">Seven core screens for the MVP. Every feature lives in one of these. Designed to be fast — most key actions in 2 taps or less.</p>
+
+  <div class="screens">
+    <div class="screen-card">
+      <div class="screen-top"><span></span><span></span><span></span></div>
+      <div class="screen-body">
+        <div class="screen-name">Home Feed</div>
+        <ul class="screen-items">
+          <li class="active">Games near you today</li>
+          <li>Recently logged scores</li>
+          <li>Tournament updates</li>
+          <li>New highlights posted</li>
+          <li>Players you follow</li>
+        </ul>
+      </div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-top"><span></span><span></span><span></span></div>
+      <div class="screen-body">
+        <div class="screen-name">Map / Find Game</div>
+        <ul class="screen-items">
+          <li class="active">NYC court map</li>
+          <li>Open game pins</li>
+          <li>Filter bar</li>
+          <li>Game detail drawer</li>
+          <li>Join button</li>
+        </ul>
+      </div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-top"><span></span><span></span><span></span></div>
+      <div class="screen-body">
+        <div class="screen-name">Create Game</div>
+        <ul class="screen-items">
+          <li class="active">Court picker</li>
+          <li>Date + time</li>
+          <li>Game type + skill</li>
+          <li>Player spots</li>
+          <li>Share link</li>
+        </ul>
+      </div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-top"><span></span><span></span><span></span></div>
+      <div class="screen-body">
+        <div class="screen-name">Game Page</div>
+        <ul class="screen-items">
+          <li class="active">Game details</li>
+          <li>Players roster</li>
+          <li>Score / ref sheet</li>
+          <li>Video links</li>
+          <li>Game history</li>
+        </ul>
+      </div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-top"><span></span><span></span><span></span></div>
+      <div class="screen-body">
+        <div class="screen-name">Referee Sheet</div>
+        <ul class="screen-items">
+          <li class="active">Point-by-point log</li>
+          <li>Serving rotation</li>
+          <li>Timeouts + fouls</li>
+          <li>Final score submit</li>
+          <li>PDF export</li>
+        </ul>
+      </div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-top"><span></span><span></span><span></span></div>
+      <div class="screen-body">
+        <div class="screen-name">Tournaments</div>
+        <ul class="screen-items">
+          <li class="active">Active tournaments</li>
+          <li>Live bracket view</li>
+          <li>Sign-up page</li>
+          <li>Match schedule</li>
+          <li>Results history</li>
+        </ul>
+      </div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-top"><span></span><span></span><span></span></div>
+      <div class="screen-body">
+        <div class="screen-name">Player Profile</div>
+        <ul class="screen-items">
+          <li class="active">Stats + record</li>
+          <li>Game history</li>
+          <li>Tournament results</li>
+          <li>Highlight videos</li>
+          <li>Follow / message</li>
+        </ul>
+      </div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-top"><span></span><span></span><span></span></div>
+      <div class="screen-body">
+        <div class="screen-name">Highlights Feed</div>
+        <ul class="screen-items">
+          <li class="active">All NYC game videos</li>
+          <li>Filter by court</li>
+          <li>Filter by player</li>
+          <li>Tournament highlights</li>
+          <li>Most viewed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout blue">
+    📱 <strong>Navigation structure:</strong> Bottom tab bar with 5 tabs — Home, Find Game, + Create, Tournaments, Profile. The + button in the center is always visible and opens Create Game in one tap. Everything else is reachable in 2 taps from the home screen.
+  </div>
+</div>
+
+<!-- DATABASE -->
+<div class="section" id="database">
+  <div class="sec-label">04 — Data Architecture</div>
+  <h2 class="sec-title">Database <span>Design</span></h2>
+  <p class="intro">Six core tables. This is the foundation that also powers the Life OS later. Build it clean and everything else is easy to add.</p>
+
+  <div class="g2">
+    <div>
+      <div class="db-table">
+        <div class="db-header"><span class="db-name">users</span><span class="db-desc">Player accounts and profiles</span></div>
+        <div class="db-fields">
+          <div class="db-field"><span class="fname">id</span><span class="ftype">uuid</span><span class="fnote">primary key</span></div>
+          <div class="db-field"><span class="fname">username</span><span class="ftype">text</span><span class="fnote">unique handle</span></div>
+          <div class="db-field"><span class="fname">display_name</span><span class="ftype">text</span><span class="fnote">shown on profile</span></div>
+          <div class="db-field"><span class="fname">home_courts</span><span class="ftype">text[]</span><span class="fnote">preferred courts array</span></div>
+          <div class="db-field"><span class="fname">skill_level</span><span class="ftype">enum</span><span class="fnote">open / intermediate / advanced</span></div>
+          <div class="db-field"><span class="fname">wins / losses</span><span class="ftype">int</span><span class="fnote">auto-calculated</span></div>
+          <div class="db-field"><span class="fname">created_at</span><span class="ftype">timestamp</span><span class="fnote"></span></div>
+        </div>
+      </div>
+      <div class="db-table">
+        <div class="db-header"><span class="db-name">games</span><span class="db-desc">Individual game sessions</span></div>
+        <div class="db-fields">
+          <div class="db-field"><span class="fname">id</span><span class="ftype">uuid</span><span class="fnote">primary key</span></div>
+          <div class="db-field"><span class="fname">creator_id</span><span class="ftype">uuid</span><span class="fnote">ref: users.id</span></div>
+          <div class="db-field"><span class="fname">court_id</span><span class="ftype">uuid</span><span class="fnote">ref: courts.id</span></div>
+          <div class="db-field"><span class="fname">game_type</span><span class="ftype">enum</span><span class="fnote">singles / doubles / cutthroat</span></div>
+          <div class="db-field"><span class="fname">scheduled_at</span><span class="ftype">timestamp</span><span class="fnote">when the game starts</span></div>
+          <div class="db-field"><span class="fname">status</span><span class="ftype">enum</span><span class="fnote">open / active / completed</span></div>
+          <div class="db-field"><span class="fname">max_players</span><span class="ftype">int</span><span class="fnote">spots available</span></div>
+          <div class="db-field"><span class="fname">video_urls</span><span class="ftype">text[]</span><span class="fnote">YouTube / video links</span></div>
+          <div class="db-field"><span class="fname">tournament_id</span><span class="ftype">uuid</span><span class="fnote">nullable — if part of tournament</span></div>
+        </div>
+      </div>
+      <div class="db-table">
+        <div class="db-header"><span class="db-name">courts</span><span class="db-desc">NYC handball court locations</span></div>
+        <div class="db-fields">
+          <div class="db-field"><span class="fname">id</span><span class="ftype">uuid</span><span class="fnote">primary key</span></div>
+          <div class="db-field"><span class="fname">name</span><span class="ftype">text</span><span class="fnote">court display name</span></div>
+          <div class="db-field"><span class="fname">borough</span><span class="ftype">enum</span><span class="fnote">Manhattan / Brooklyn / etc</span></div>
+          <div class="db-field"><span class="fname">lat / lng</span><span class="ftype">float</span><span class="fnote">map coordinates</span></div>
+          <div class="db-field"><span class="fname">walls</span><span class="ftype">int</span><span class="fnote">number of walls / courts</span></div>
+          <div class="db-field"><span class="fname">surface</span><span class="ftype">text</span><span class="fnote">concrete / hardwood etc</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="db-table">
+        <div class="db-header"><span class="db-name">game_players</span><span class="db-desc">Who played in each game</span></div>
+        <div class="db-fields">
+          <div class="db-field"><span class="fname">game_id</span><span class="ftype">uuid</span><span class="fnote">ref: games.id</span></div>
+          <div class="db-field"><span class="fname">user_id</span><span class="ftype">uuid</span><span class="fnote">ref: users.id</span></div>
+          <div class="db-field"><span class="fname">team</span><span class="ftype">int</span><span class="fnote">1 or 2</span></div>
+          <div class="db-field"><span class="fname">result</span><span class="ftype">enum</span><span class="fnote">win / loss / draw</span></div>
+          <div class="db-field"><span class="fname">is_referee</span><span class="ftype">bool</span><span class="fnote">did this player ref</span></div>
+        </div>
+      </div>
+      <div class="db-table">
+        <div class="db-header"><span class="db-name">game_sheets</span><span class="db-desc">Referee game sheet data</span></div>
+        <div class="db-fields">
+          <div class="db-field"><span class="fname">id</span><span class="ftype">uuid</span><span class="fnote">primary key</span></div>
+          <div class="db-field"><span class="fname">game_id</span><span class="ftype">uuid</span><span class="fnote">ref: games.id</span></div>
+          <div class="db-field"><span class="fname">referee_id</span><span class="ftype">uuid</span><span class="fnote">ref: users.id</span></div>
+          <div class="db-field"><span class="fname">rallies</span><span class="ftype">jsonb</span><span class="fnote">point-by-point array</span></div>
+          <div class="db-field"><span class="fname">timeouts</span><span class="ftype">jsonb</span><span class="fnote">who called, when</span></div>
+          <div class="db-field"><span class="fname">fouls</span><span class="ftype">jsonb</span><span class="fnote">player fouls log</span></div>
+          <div class="db-field"><span class="fname">final_score</span><span class="ftype">jsonb</span><span class="fnote">{team1: 21, team2: 15}</span></div>
+          <div class="db-field"><span class="fname">verified</span><span class="ftype">bool</span><span class="fnote">both players confirmed</span></div>
+        </div>
+      </div>
+      <div class="db-table">
+        <div class="db-header"><span class="db-name">tournaments</span><span class="db-desc">Tournament structure and brackets</span></div>
+        <div class="db-fields">
+          <div class="db-field"><span class="fname">id</span><span class="ftype">uuid</span><span class="fnote">primary key</span></div>
+          <div class="db-field"><span class="fname">name</span><span class="ftype">text</span><span class="fnote">tournament name</span></div>
+          <div class="db-field"><span class="fname">format</span><span class="ftype">enum</span><span class="fnote">single elim / round robin</span></div>
+          <div class="db-field"><span class="fname">court_id</span><span class="ftype">uuid</span><span class="fnote">ref: courts.id</span></div>
+          <div class="db-field"><span class="fname">start_date</span><span class="ftype">timestamp</span><span class="fnote"></span></div>
+          <div class="db-field"><span class="fname">max_players</span><span class="ftype">int</span><span class="fnote">bracket size</span></div>
+          <div class="db-field"><span class="fname">bracket</span><span class="ftype">jsonb</span><span class="fnote">full bracket structure</span></div>
+          <div class="db-field"><span class="fname">status</span><span class="ftype">enum</span><span class="fnote">open / active / completed</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout green">
+    🔁 <strong>Life OS reuse:</strong> The <code>users</code> table becomes your personal account. A <code>workouts</code> table, <code>journal_entries</code> table, and <code>daily_logs</code> table plug straight into the same database. Same authentication, same infrastructure — zero rebuild needed.
+  </div>
+</div>
+
+<!-- TECH STACK -->
+<div class="section" id="techstack">
+  <div class="sec-label">05 — Technology</div>
+  <h2 class="sec-title">Tech <span>Stack</span></h2>
+  <p class="intro">Chosen for speed of development, not complexity. Every tool here has great documentation and a large community — meaning when you get stuck, answers are easy to find.</p>
+
+  <div class="card" style="margin-bottom:24px">
+    <div class="tech-row">
+      <div class="tech-layer">Frontend</div>
+      <div class="tech-tool">React Native + Expo</div>
+      <div class="tech-why">One codebase runs on Android phone and browser. Expo removes the complex native setup. You write JavaScript — approachable with some coding experience.</div>
+    </div>
+    <div class="tech-row">
+      <div class="tech-layer">Backend / Database</div>
+      <div class="tech-tool">Supabase</div>
+      <div class="tech-why">Postgres database + authentication + real-time updates + file storage — all in one. Free tier is generous. No server to manage. SQL is readable and learnable. Powers both apps.</div>
+    </div>
+    <div class="tech-row">
+      <div class="tech-layer">Authentication</div>
+      <div class="tech-tool">Supabase Auth</div>
+      <div class="tech-why">Email + Google login built in. One line of code. Handles security so you don't have to think about it.</div>
+    </div>
+    <div class="tech-row">
+      <div class="tech-layer">Maps</div>
+      <div class="tech-tool">Google Maps API</div>
+      <div class="tech-why">Best map quality for NYC. React Native has a clean Google Maps wrapper. You pre-load all NYC handball courts as data — no map scraping needed.</div>
+    </div>
+    <div class="tech-row">
+      <div class="tech-layer">Video Embeds</div>
+      <div class="tech-tool">YouTube oEmbed API</div>
+      <div class="tech-why">Free API. Paste any YouTube URL and get a thumbnail + embed automatically. Works for Instagram and other platforms via open graph data.</div>
+    </div>
+    <div class="tech-row">
+      <div class="tech-layer">Notifications</div>
+      <div class="tech-tool">Expo Push Notifications</div>
+      <div class="tech-why">Built into Expo. Send push notifications when players join your game, tournament brackets update, or scores are submitted. Free.</div>
+    </div>
+    <div class="tech-row">
+      <div class="tech-layer">AI Assist</div>
+      <div class="tech-tool">Claude API</div>
+      <div class="tech-why">For the math homework tool and eventually smart scheduling in your Life OS. You already know how to use Claude — plug the API in when ready.</div>
+    </div>
+    <div class="tech-row">
+      <div class="tech-layer">Deployment</div>
+      <div class="tech-tool">Expo + Vercel</div>
+      <div class="tech-why">Expo publishes the mobile app. Vercel hosts the web version. Both deploy with one command. Both free to start.</div>
+    </div>
+  </div>
+
+  <div class="callout gold">
+    💡 <strong>Why not Flutter, Swift, or Kotlin?</strong> React Native means one codebase for Android + web. Since you have some coding experience and will be using AI to help build, JavaScript is the most accessible path. You can always add native modules later if needed.
+  </div>
+</div>
+
+<!-- BUILD PLAN -->
+<div class="section" id="build">
+  <div class="sec-label">06 — Execution</div>
+  <h2 class="sec-title">Build <span>Plan</span></h2>
+  <p class="intro">Three phases. Phase 1 gets you something real people can use. Phase 2 adds the features that make it sticky. Phase 3 opens it up to grow.</p>
+
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-phase">Phase 1 — Weeks 1–3 · Foundation</div>
+      <div class="tl-title">Get It Working</div>
+      <div class="tl-desc">Auth, profiles, create game, find game on map, join game. By end of week 3 you should be able to create a real game and text a friend the link to join.</div>
+      <ul class="tl-tasks">
+        <li>Set up Supabase project — database, auth, tables</li>
+        <li>Set up Expo React Native project</li>
+        <li>User registration and login (email + Google)</li>
+        <li>Basic player profile screen</li>
+        <li>Pre-load all NYC handball courts into database</li>
+        <li>Create game form — court, date, time, type, spots</li>
+        <li>Map screen showing open games as pins</li>
+        <li>Join game with one tap</li>
+        <li>Push notification when someone joins your game</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-phase">Phase 2 — Weeks 4–6 · The Features That Matter</div>
+      <div class="tl-title">Score, Ref, and Film</div>
+      <div class="tl-desc">This is where your app becomes unique. Quick score logging, the referee game sheet, and video attachment. By end of week 6 you can play a game, have someone ref it, log the score, and attach the YouTube clip — all in one place.</div>
+      <ul class="tl-tasks">
+        <li>Quick score log — winner, score, confirm both players</li>
+        <li>Referee game sheet — point-by-point entry UI</li>
+        <li>Serving rotation tracker in ref mode</li>
+        <li>Fouls and timeouts log</li>
+        <li>Game sheet saves to both player profiles</li>
+        <li>Video URL attachment to any game</li>
+        <li>YouTube thumbnail auto-generation</li>
+        <li>Highlights feed — all NYC game videos</li>
+        <li>Player profile — stats auto-update from game data</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-phase">Phase 3 — Weeks 7–8 · Tournaments + Polish</div>
+      <div class="tl-title">Run the First Tournament</div>
+      <div class="tl-desc">Tournament creation, sign-up, bracket generation, and real-time updates. Then polish, bug fix, and invite your handball community to use it. The goal: run one real NYC tournament through the app before end of summer.</div>
+      <ul class="tl-tasks">
+        <li>Tournament creation — name, format, court, date, max players</li>
+        <li>Public sign-up page with shareable link</li>
+        <li>Auto-bracket generation on sign-up close</li>
+        <li>Bracket UI — visual bracket that updates live</li>
+        <li>Match scheduling within tournament</li>
+        <li>Tournament results on all player profiles</li>
+        <li>General polish — loading states, error messages, empty states</li>
+        <li>Beta test with 10–20 real NYC handball players</li>
+        <li>Fix everything they break</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    🚀 <strong>After Phase 3:</strong> Expand courts to other cities. Add direct messaging between players. Add sport selection (basketball, tennis, etc.) to expand beyond handball. The foundation handles all of it without a rebuild.
+  </div>
+</div>
+
+<!-- DAILY SCHEDULE -->
+<div class="section" id="daily">
+  <div class="sec-label">07 — Your Schedule</div>
+  <h2 class="sec-title">Daily <span>Build</span> Routine</h2>
+  <p class="intro">You have mornings. Tutoring starts at 3pm most days. Handball is late afternoon. That means <strong>your build window is 8am–1pm</strong> — protect it like a tutoring session you can't cancel.</p>
+
+  <div class="g2">
+    <div class="card">
+      <h3 style="color:var(--red)">Weekday Build Day</h3>
+      <div class="card-label" style="color:var(--red)">Mon / Tue / Wed / Thu</div>
+      <ul class="plain">
+        <li><strong>7:00–7:30am</strong> Morning routine — water, meditation, mobility</li>
+        <li><strong>7:30–8:00am</strong> Breakfast</li>
+        <li><strong>8:00–10:30am</strong> Deep work — handball app build. No interruptions.</li>
+        <li><strong>10:30–11:00am</strong> AI learning — docs, tutorials, experiment with a feature</li>
+        <li><strong>11:00–12:30pm</strong> Math homework tool or student prep work</li>
+        <li><strong>12:30–1:00pm</strong> Lunch + walk</li>
+        <li><strong>1:00–2:30pm</strong> Admin, planning, light coding or research</li>
+        <li><strong>2:30–3:00pm</strong> Transition — prep for tutoring</li>
+        <li><strong>3:00–7:00pm</strong> Tutoring window</li>
+        <li><strong>4:30–6:30pm</strong> Handball (if no tutoring) — KB activation first</li>
+        <li><strong>7:30pm</strong> Dinner</li>
+        <li><strong>8:00–9:00pm</strong> Light planning, journaling, review what you built</li>
+        <li><strong>10:00pm</strong> Wind-down begins</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--blue)">Weekend Build Day</h3>
+      <div class="card-label" style="color:var(--blue)">Saturday / Sunday</div>
+      <ul class="plain">
+        <li><strong>7:00–7:30am</strong> Morning routine</li>
+        <li><strong>7:30–8:00am</strong> Breakfast</li>
+        <li><strong>8:00–10:00am</strong> Deep build session — tackle the hardest problem of the week</li>
+        <li><strong>10:00–11:30am</strong> Handball (weekends run earlier — 10am)</li>
+        <li><strong>12:00–1:00pm</strong> Recovery lunch + walk</li>
+        <li><strong>1:00–3:00pm</strong> Second build block — lighter work, testing, UI polish</li>
+        <li><strong>3:00–6:00pm</strong> Free — social, family, errands</li>
+        <li><strong>6:30pm</strong> Dinner</li>
+        <li><strong>Sunday only: meal prep during afternoon build block</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout gold">
+    ⚠️ <strong>The tutoring-workout conflict rule:</strong> Never do a full KB session or heavy weights on a day you tutor before 5pm. KB activation only (20–25 min) on those days. Full sessions on non-tutoring days or after tutoring ends. Your students need you sharp.
+  </div>
+</div>
+
+<!-- LIFE OS LINK -->
+<div class="section" id="lifeOS">
+  <div class="sec-label">08 — The Bigger Picture</div>
+  <h2 class="sec-title">How It Connects to Your <span>Life OS</span></h2>
+  <p class="intro">The handball app is the foundation. Here's exactly what you build once and reuse in your personal Life OS — so when you're ready to build it, most of the hard work is already done.</p>
+
+  <div class="g4">
+    <div class="card">
+      <h3 style="color:var(--red); font-size:16px">Auth System</h3>
+      <div class="card-label" style="color:var(--red)">Built in Phase 1</div>
+      <p>User accounts, login, sessions, secure data. Your Life OS is just a private account — same system, private screens only you can see.</p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--blue); font-size:16px">Database</h3>
+      <div class="card-label" style="color:var(--blue)">Built in Phase 1</div>
+      <p>Supabase Postgres. Add workouts, sleep logs, journal entries, and energy scores as new tables. Zero rebuild — just new data.</p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--green); font-size:16px">Scheduling Logic</h3>
+      <div class="card-label" style="color:var(--green)">Built in Phase 1–2</div>
+      <p>Date/time logic built for games and tournaments. Reused for training schedule, tutoring blocks, and coding sessions in Life OS.</p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--gold); font-size:16px">UI Components</h3>
+      <div class="card-label" style="color:var(--gold)">Built across all phases</div>
+      <p>Cards, charts, stat displays, calendars, profile screens. Life OS reuses the same components — just showing your HRV instead of a score.</p>
+    </div>
+  </div>
+
+  <div class="callout green">
+    🔗 <strong>The sequence:</strong> Handball app (weeks 1–8) → Math homework tool (weeks 4–6 in parallel) → Life OS (months 3–4, built on top of everything). By the time you build the Life OS, 60–70% of the infrastructure already exists.
+  </div>
+
+  <div class="div"></div>
+
+  <div class="big-label">What Gets Added for Life OS</div>
+  <div class="sub-label" style="color:var(--muted)">New tables and screens on the same foundation</div>
+
+  <div class="g3">
+    <div class="card">
+      <h3 style="color:var(--red); font-size:16px;">New DB Tables</h3>
+      <ul class="arr red">
+        <li>daily_logs — energy, mood, water, sleep rating</li>
+        <li>workouts — type, duration, effort, KB session</li>
+        <li>journal_entries — text, date, tags</li>
+        <li>tutoring_sessions — student, hours, prep time</li>
+        <li>sleep_data — from Samsung Health API</li>
+        <li>hrv_readings — from Galaxy Watch Ultra</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--blue); font-size:16px;">New Screens</h3>
+      <ul class="arr blue">
+        <li>Daily dashboard — readiness score, schedule</li>
+        <li>Training log — minimums tracker, weekly view</li>
+        <li>Journal — daily entry, mood, notes</li>
+        <li>Work schedule — tutoring hours + coding blocks</li>
+        <li>Sleep tracker — pulls from Samsung Health</li>
+        <li>Energy trends — weekly and monthly charts</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--green); font-size:16px;">Samsung Health Integration</h3>
+      <ul class="arr green">
+        <li>Health Connect API — Android only, free</li>
+        <li>Reads: sleep stages, HRV, heart rate, stress</li>
+        <li>Reads: workout auto-detection from watch</li>
+        <li>Writes: custom workout logs back to Samsung Health</li>
+        <li>Readiness score = sleep + HRV + stress combined</li>
+        <li>Added in Life OS phase — not needed for handball app</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>NYC · Spring 2026 · Build it · Ship it · Play it</p>
+</footer>
+
+<script>
+  function goTo(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var nav = document.querySelector('nav');
+    var offset = nav ? nav.offsetHeight : 0;
+    var top = el.getBoundingClientRect().top + window.pageYOffset - offset - 16;
+    window.scrollTo(0, top);
+  }
+</script>
+
+
+</body></html>

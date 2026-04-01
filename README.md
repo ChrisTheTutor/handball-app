@@ -1,50 +1,97 @@
-# Welcome to your Expo app 👋
+# 🤾 Handball Social App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A social platform for handball players in NYC — find open games, log scores, run tournaments, and share highlights.
 
-## Get started
+Built by a handball player, for handball players.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## What It Does
 
-2. Start the app
+| Feature | Description |
+|---|---|
+| 🗺️ Find Games | Map of open games near you in NYC |
+| ➕ Create Games | Set up a game in 30 seconds and share a link |
+| 📋 Referee Sheet | Point-by-point game sheet like baseball scorecards |
+| 🏆 Tournaments | Create brackets, manage sign-ups, update scores live |
+| 🎬 Video Links | Attach YouTube or video links to any game |
+| 👤 Player Profiles | Win/loss record, game history, tournament results |
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## Status
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+> 🚧 **Currently in development — Phase 1**
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- [x] App plan and database design complete
+- [ ] Supabase project setup
+- [ ] User authentication
+- [ ] Court database (NYC)
+- [ ] Create and find games
+- [ ] Map view
+- [ ] Score logging
+- [ ] Referee game sheet
+- [ ] Video attachment
+- [ ] Tournament brackets
+- [ ] Player profiles
+- [ ] Beta launch with NYC handball community
 
-## Get a fresh project
+---
 
-When you're ready, run:
+## Tech Stack
 
-```bash
-npm run reset-project
-```
+- **Frontend** — React Native + Expo (iOS, Android, Web)
+- **Backend / Database** — Supabase (Postgres + Auth + Realtime)
+- **Maps** — Google Maps API
+- **Video** — YouTube oEmbed API
+- **Notifications** — Expo Push Notifications
+- **Deployment** — Expo + Vercel
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## The Vision
 
-To learn more about developing your project with Expo, look at the following resources:
+Handball has no real digital home. Players find games through group chats and word of mouth. Scores get forgotten. There's no tournament infrastructure for casual players and no way to document your game.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+This app fixes that — starting with NYC, the handball capital, and expanding to all sports and cities over time.
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+## Roadmap
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Phase 1 — Foundation (Weeks 1–3)
+User accounts, player profiles, create game, find game on map, join game.
+
+### Phase 2 — The Core Features (Weeks 4–6)
+Score logging, referee game sheet, video attachment, highlights feed.
+
+### Phase 3 — Tournaments + Launch (Weeks 7–8)
+Tournament creation, brackets, real-time updates, NYC beta launch.
+
+### Beyond MVP
+- Expand to other cities
+- Direct messaging between players
+- Add other sports (basketball, tennis, etc.)
+- Community rankings and leaderboards
+
+---
+
+## Getting Started (Coming Soon)
+
+Setup instructions will be added once the development environment is configured.
+
+---
+
+## Contributing
+
+Not open to contributions yet — solo build in progress. Watch the repo for updates.
+
+---
+
+## Contact
+
+Built by [@ChrisTheTutor](https://github.com/ChrisTheTutor) — NYC handball player, math tutor, and app developer.
+
+---
+
+*Starting in NYC. Growing everywhere.*
